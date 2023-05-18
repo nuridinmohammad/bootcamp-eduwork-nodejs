@@ -2,7 +2,8 @@ import express from "express";
 import path from "path"
 import cors from 'cors'
 import compression from "compression";
-import router from "./src/expressjs/routes/routes.js";
+import routerProduct from "./src/mysql-restapi/app/product/routes.js";
+import routerProductV2 from "./src/mysql-restapi/app/product-v2/routes.js";
 import notFound from "./src/expressjs/utils/notFound.js";
 import { log } from "./src/expressjs/middleware/logger.js";
 
@@ -16,7 +17,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json())
 // app.use(compression())
 app.use("/public",express.static(path.join(__dirname, 'assets')))
-app.use(router);
+app.use('/api/v1',routerProduct);
+app.use('/api/v2',routerProductV2);
 app.use(notFound);
 
 app.listen(port, () => {
